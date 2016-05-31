@@ -1,0 +1,52 @@
+Name: Vu Cu
+ID: 504669405
+
+QUESTION 2A.1A: To make it fail, it has to be like this:
+"long long sum = *pointer + value;" > context switch
+> another thread update the pointer > context switch
+> *pointer = sum;
+Since context switch rarely occur mid-function, it will
+take a very large amount of threads and operations for
+this to happen. 
+
+QUESTION 2A.1B: Context switch timer can be large enough 
+to run through every iteration without a switch, so we 
+need large amount of iterations, so that a thread will
+use up it time slice, hopefully in mid-function as describe
+above so failure will happen.
+
+QUESTION 2A.2A: The average cost per operation drop with 
+increasing iterations because of amortization. That is,
+the time of thread creation/destruction is fixed, so the 
+time of thread creation/destruction per iteration will 
+reduce as the number of iteration increases.
+
+QUESTION 2A.2B: Either using a very very large number of
+iterations so that the fixed cost is trivial, or using 
+clock inside the add function.
+
+QUESTION 2A.2C: Because each operation will yield the CPU,
+so the number of context switches is much larger. Context
+switch is a very expensive operation, so the majority of
+extra time goes there.
+
+QUESTION 2A.2D: No. Because after yielding, the scheduler 
+might pick another process to run. We don't know whether 
+it happens or not, and if it happens, how long. So the 
+timings is not valid.
+
+QUESTION 2A.3A: In low number of threads, switching rarely
+happens, so they perform similarly.
+
+QUESTION 2A.3B: Because the protected operation is small,
+the CPU will spend most of it's time switching and not 
+much actually working on the problem (thrashing).
+
+QUESTION 2A.3C: Imagine the case where the thread holding 
+the lock is pre-empted within a critical section. The 
+scheduler might then run every other thread (imagine 
+there are N − 1 others), each of which tries to acquire
+the lock. In this case, each of those threads will spin 
+for the duration of a time slice before giving up the CPU.
+
+Limitations: Big number of threads causes segmentation error.

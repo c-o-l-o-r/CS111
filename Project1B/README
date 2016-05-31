@@ -1,0 +1,12 @@
+Name: Vu Cu
+ID: 504669405
+
+Use of slip day: 1 day
+
+Limitations:
+Encryption will leave the string intact if it's too short.
+For example, when you type "ls" in client, it will be sent
+as "ls". But when you type a longer command, such as
+"which gcc | grep bin", it will get encrypted.
+
+

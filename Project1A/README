@@ -1,0 +1,12 @@
+Limitations:
+	Anything wrong happens to the shell is interpreted as 
+	"EOF Received from Shell". So when C-D is pressed, to 
+	prevent that happens, flag_shell_eof_disable is set.
+	
+	Cannots handle very long input in --shell options.
+	For some reason, realloc works when there is no
+	options, but it doesn't work in --shell options,
+	with the error: realloc(): invalid next size. So to
+	prevent that happens, the initial buffer is set at 
+	1000.
+	

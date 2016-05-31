@@ -1,0 +1,24 @@
+Name: Vu Cu
+ID: 504669405
+
+Use of slip day: 1
+
+QUESTION 2B.1A: SortedList_insert, SortedList_lookup grows
+as the list get bigger. Hence the worker thread is O(N^2),
+and the time per operation grows linearly, in general.
+
+QUESTION 2B.1B: Use a different data structure, like a heap.
+Insert/lookup/delete will be O(logN), so the time per operation
+will grows very slowly.
+
+QUESTIONS 2B.2A: Same as Graph 2 in Project 1A, spin-lock is
+slower as the number of threads increase.
+Reason:
+Imagine the case where the thread holding 
+the lock is pre-empted within a critical section. The 
+scheduler might then run every other thread (imagine 
+there are N − 1 others), each of which tries to acquire
+the lock. In this case, each of those threads will spin 
+for the duration of a time slice before giving up the CPU.
+
+

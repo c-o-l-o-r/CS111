@@ -1,0 +1,207 @@
+
+<!-- saved from url=(0068)http://web.cs.ucla.edu/classes/spring16/cs111/projects/Project0.html -->
+<html pmbx_context="AFC42FE2-A940-4077-88FC-3D5AE77446C8"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>CS111 - Project 0: Warm-Up</title>
+<script type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./CS111 - Project 0_files/ndhui.css"><style type="text/css"></style></head>
+<body><script type="text/javascript" language="javascript" src="./CS111 - Project 0_files/ndhui.js"></script>
+<center>
+<h1>CS111 - Project 0: Warm-Up</h1>
+</center>
+
+<h2>INTRODUCTION:</h2>
+<p>
+Every quarter a few students come into this course without basic C software development 
+skills,  and invest a great deal of time and frustrating effort in the first two projects 
+before concluding they will fail the course and must drop.  We have created this
+simple warm-up to determine whether or not students are prepared to work on C programming 
+projects.
+Most students should find this project to be completely trivial (20 minutes of work).
+If you do not find this project to be trivial, you may want to reconsider
+whether or not you are ready to take this course.
+
+</p><h2>RELATION TO READING AND LECTURES:</h2>
+<p>
+None.  This project requires only skills that incoming students should already possess.
+
+</p><h2>PROJECT OBJECTIVES:</h2>
+<ul>
+    <li> ensure students have a working Linux development environment.</li>
+    <li> ensure students can access and understand Linux API documentation.</li>
+    <li> ensure students can code, compile, test and debug simple C programs.</li>
+    <li> introduce and demonstrate the ability to use basic POSIX file operations.</li>
+    <li> introduce and demonstrate the ability to process command line arguments.</li>
+    <li> introduce and demonstrate the ability to catch and handle run-time exceptions.</li>
+    <li> introduce and demonstrate the ability to return informative exit status.</li>
+    <li> demonstrate the ability to construct a standard <tt>Makefile</tt>.</li>
+    <li> demonstrate the ability to write software that conforms to a Command
+         Line Interface (CLI) specification.</li>
+</ul>
+
+<h2>DELIVERABLES:</h2>
+A single tarball (<tt>.tar.gz</tt>) containing:
+<ul>
+    <li> a single C source module that compiles cleanly (with no errors or warnings).</li>
+    <li> a <tt>Makefile</tt> to build the program and the tarball.</li>
+    <li> two screen snapshot(s) from a <em>gdb(1)</em>: 
+    	one showing a segfault and associated stack-trace, 
+	the second showing a breakpoint and variable inspection.
+    </li>
+    <li> a <tt>README</tt> file describing each of the included files
+         and any other information about your submission that you would like
+	 to bring to our attention 
+	 (e.g. limitations, features, testing methodology, use of slip days).</li>
+</ul>
+
+<h2>PROJECT DESCRIPTION:</h2>
+<ol type="1">
+    <li> (if you do not already have one)
+    	bring up a Linux development environment.  If you do not already have one
+    	and do not know how to do this, the local Linux Users Group can help you.
+	Your development environment should include (at least):
+	<ul>
+		<li>gcc</li>
+		<li>libc (e.g. glibc or libc6-dev)</li>
+		<li>make</li>
+		<li>gdb</li>
+	</ul>
+        If do not want a personal Linux development environment, 
+	you can also work directly on a 
+        <a href="http://www.seasnet.ucla.edu/lnxsrv">SEASNET server</a>.
+    </li>
+    <li> (if you are not already familiar with them) study the following manual sections:
+	<ul>
+	    <li>POSIX file operations ...
+    		<em>open(2), creat(2), close(2), dup(2), read(2), write(2), exit(2), signal(2)</em>,
+		and this brief tutorial on 
+		<a href="http://web.cs.ucla.edu/classes/spring16/cs111/projects/fd_juggling.html">file descriptor manipulation</a>.
+	    </li>
+	    <li><em>perror(3)</em> ... a function that interprets the error codes
+	        returned from failed system calls.</li>
+    	    <li><em>getopt(3)</em> ... the framework we will use for argument
+		handling in all projects for this course.</li>
+	</ul>
+    	Feel free to seek out other examples/tutorials for these functions, but make
+	 sure you cite those sources in your <tt>README</tt>.
+    </li>
+    <p>
+    </p><li> write a program that copies its standard input to its standard output
+    	 by <em>read(2)</em>-ing from file descriptor 0 (until encountering an
+	 end of file) and <em>write(2)</em>-ing to file descriptor 1.
+	 If no errors (other than EOF) are encountered, your program should
+	 <em>exit(2)</em> with a return code of 0.
+	 <p>
+	 Your program executable should be called <tt>lab0</tt>,
+	 and accept the following command line arguments (in any combination):
+    	 </p><ul>
+	     <li> <strong>--input=</strong><em>filename</em> ...
+	     	  use the specified file as standard input (making it the new fd0).
+		  <br>
+		  If you are unable to open the specified input file,
+		  report the failure (on <tt>stderr</tt>, file descriptor 2) 
+		  using <em>fprintf(3)</em> and <em>perror(3)</em>, and <em>exit(2)</em> with a return code of 1.
+		  </li>
+	     <li> <strong>--output=</strong><em>filename</em> ...
+	     	  create the specified file and use it as standard output (making it the new fd1).
+		  <br>
+		  If you are unable to create the specified output file,
+		  report the failure (on <tt>stderr</tt>, file descriptor 2) 
+		  using <em>fprintf(3)</em> and <em>perror(3)</em>, and <em>exit(2)</em> with a return code of 2.
+		  </li>
+	     <li> <strong>--segfault</strong> ... force a segmentation fault (e.g. by 
+	     	  setting a <tt>char *</tt> pointer to <tt>NULL</tt>
+		  and then storing through it).
+		  </li>
+	     <li> <strong>--catch</strong> ... use <em>signal(2)</em> to
+	     	  register a <tt>SIGSEGV</tt> handler
+		  that catches the segmentation fault, logs an error message
+		  (on <tt>stderr</tt>, file descriptor 2) and <em>exit(2)</em> with a return code of 3.
+		  </li>
+	 </ul>
+	<p>
+    </p></li>
+    <p>
+    </p><li> create a <tt>Makefile</tt> that supports the following targets:
+	<ul>
+	    <li>(default) ... build the <tt>lab0</tt> executable.</li>
+	    <li><tt>check</tt> ... runs a quick smoke-test on whether or
+	    	not the program seems to work, supports the required
+		arguments, and reports success or failure.
+		<br>
+		Please include a brief description (in your <tt>README</tt>)
+		of what checks you chose to include in your smoke-test.
+		</li>
+	    <li><tt>clean</tt> ... delete all makefile-created files to return
+	        the directory to its just installed state.</li>
+	    <li><tt>dist</tt> ... build the distribution tarball.</li>
+	</ul>
+    </li>
+    <li> run your program (with the <strong>--segfault</strong> argument) under
+    	  <em>gdb(1)</em>
+	  <ul>
+	  	<li>take the fault</li>
+		<li>get a stack backtrace</li>
+		<li>take a screen snapshot (to be included with your submission)</li>
+    	  </ul>
+    </li>
+    <li> run your program (with the <strong>--segfault</strong> argument) under
+    	  <em>gdb(1)</em>
+	  <ul>
+	  	<li>set a break-point at the bad assignment</li>
+		<li>run the program up to the breakpoint</li>
+		<li>inspect the pointer to confirm that it is indeed NULL</li>
+		<li>take a screen snapshot (to be included with your submission)</li>
+    	  </ul>
+    </li>
+
+</ol>
+
+<h2>VALUE:</h2>
+<p>
+This project is worth 5% of your total course grade.
+Points for this project will be awarded:
+</p>
+<center>
+<table><tbody>
+<tr> <td><strong>Value</strong></td> <td><strong>Feature</strong></td> </tr>
+<tr> <td></td> 	<td><strong>packaging and build</strong></td> </tr>
+<tr> <td>5%</td> <td>untars expected contents</td> </tr>
+<tr> <td>5%</td> <td>clean build w/default action</td> </tr>
+<tr> <td>1%</td> <td>correct <tt>make check<tt></tt></tt></td> </tr>
+<tr> <td>1%</td> <td>correct <tt>make clobber<tt></tt></tt></td> </tr>
+<tr> <td>1%</td> <td>correct <tt>make dist<tt></tt></tt></td> </tr>
+<tr> <td>2%</td> <td>reasonablness of <tt>README<tt> contents</tt></tt></td> </tr>
+<tr> <td>5%</td> <td>reasonablness of smoke test</td> </tr>
+
+<tr> <td></td> 	<td><strong>input/output features</strong></td> </tr>
+<tr> <td>10%</td> <td>correctly copy input to output</td> </tr>
+<tr> <td>10%</td> <td>correctly implements <tt>--input</tt></td> </tr>
+<tr> <td>10%</td> <td>correct handling of non-existant input file</td> </tr>
+<tr> <td>10%</td> <td>correctly implements <tt>--output</tt></td> </tr>
+<tr> <td>5%</td> <td>correct handling of un-openable/creatable output file</td> </tr>
+<tr> <td>5%</td> <td>implements combined <tt>--input</tt> + <tt>--output</tt></td> </tr>
+
+<tr> <td></td> 	<td><strong>fault handling</strong></td> </tr>
+<tr> <td>5%</td> <td>generate (and die from) SIGSEGV</td> </tr>
+<tr> <td>5%</td> <td>catch and report SIGSEGV</td> </tr>
+
+<tr> <td></td> 	<td><strong>gdb use</strong></td> </tr>
+<tr> <td>5%</td> <td>screen shot showing taking of segfault within gdb</td> </tr>
+<tr> <td>5%</td> <td>screen shot showing backtrace from segfault</td> </tr>
+<tr> <td>5%</td> <td>screen shot showing breakpoint stop before fault</td> </tr>
+<tr> <td>5%</td> <td>screen shot showing inspection of null pointer</td> </tr>
+</tbody></table>
+</center>
+
+<h2>SUBMISSION:</h2>
+<p>
+This project is due before midnight on Monday April 4, 2016.
+</p><p>
+Your tarball should have a name of the form
+<tt>lab0-</tt><em>yourStudentID</em><tt>.tar.gz</tt>.
+and should be submitted via CCLE.  
+</p><p>
+We will test it on a SEASnet GNU/Linux server running RHEL 7.
+You would be well advised to test all the functionality of your submission on 
+that platform before submitting it.
+
+</p><div id="tf_hui_container" dir="ltr" onselectstart="return false;" style="position: fixed;"><div id="nd_e506252a6b7649eb9640b54befbe7519_status" class="nd_e506252a6b7649eb9640b54befbe7519_status" style="background-position: 0px 0px;"><label id="labelstatus" class="green">Page is safe</label></div><div id="nd_e506252a6b7649eb9640b54befbe7519_title" class="nd_e506252a6b7649eb9640b54befbe7519_title"><span class="notranslate"><label id="labeltitle">Antivirus Plus 2015</label></span></div><a id="nd_e506252a6b7649eb9640b54befbe7519_tooltip_sandbox" class="nd_e506252a6b7649eb9640b54befbe7519_tool" title="Sandbox" style=""><div id="nd_e506252a6b7649eb9640b54befbe7519_tooltip_sandbox_img"></div></a><a id="nd_e506252a6b7649eb9640b54befbe7519_dragger" class="nd_e506252a6b7649eb9640b54befbe7519_dragger" title="Click to expand"></a></div></body></html>

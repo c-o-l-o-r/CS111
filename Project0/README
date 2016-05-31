@@ -1,0 +1,11 @@
+Source file: lab0.c
+
+Test files: check1.txt, check2.txt, check3.txt, check4.txt
+Test cases:
+	1: Run without any options
+	2: Run with input file option
+	3: Run with output file option
+	4: Run with both input and output file options
+	5: Run with segfault option
+	6: Run with segfault and catch option
+ 

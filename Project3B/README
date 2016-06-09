@@ -1,0 +1,8 @@
+UID: 504669405
+
+HOW TO RUN:
+make 			// compile
+make run		// run
+
+data.h, data.c: Including the data structures. The program will load
+csv file contents into the data structures.

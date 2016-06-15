@@ -10,4 +10,6 @@ Projects / Grades / Comments:
 * Project 2C: lock granularity and performance / 88 / -2 code review: list vs lists, length calc wrong; -10 questions  
 * Project 3A: file system dump / 100   
 * Project 3B: file system dump / 97 / bad run target   
+* Final Project: file system dump / 100
+
   

@@ -1,0 +1,83 @@
+Name: Vu Cu
+UID: 504669405
+
+Lab4-B-1:
+Basically the output is the client send the heart
+rate of a patient to a server. The server send back
+the heart rate of that patient, thus confirming
+the message integrity.
+However, the message is unencrypted, sending as plaintext.
+so anyone can view the message transfer across 
+the network, not confidental.
+There is no authentication, we're not really sure if the 
+message is really from the server, and the server is not
+sure that the message it receive is from us.
+So a man in a middle attack can change
+the contents of the client to the server, and vice
+versa. For example, the hacker can change the heart 
+rate of the first input from 72.72 to 80. The server
+receives 80, then echo back 80. But then the hacker
+changes the value back to 72.72, so the client don't
+know the server receives wrong information.
+
+Lab4-B-2:
+The output is the bytes we send to the server. The bytes
+are the messages in cleartext.
+It is important because it shows that without encryption,
+anyone can see our messages sending to the server, not 
+confidental
+
+Lab4-B-3:
+We can remotely send a new rate to the server.
+
+Lab4-B-4:
+An attack to change the rate to a out-of-range value.
+Since there is no authentication, the hacker can pretend
+to be the client (from the client's IP), and thus send
+fraudulent messages to the server.
+The server, only identify client based on IP in the message
+, not the actual IP, it cannot distinguish the hacker from
+the client.
+
+Lab4-D-1:
+Now it is more secured, since there is encryption, so we 
+can assure the confidentality of the message.
+Also, the server is certificated, so we can be sure this
+is an authentic server.
+Also, the messages returned from the server match the
+messages sent to the server by the client. That means
+the message has not been tampered with, so we can ensure
+its integrity.
+
+Lab4-D-2:
+The output is the bytes we send to the server. The bytes
+are garbage values.
+It is important because it shows that with strong
+encryption, anyone seeing the message can only the 
+encrypted text, not the actual message, thus ensure the 
+confidentality of the message.
+
+Lab4-D-3:
+After we change the rate, messages returned from the 
+server doesn't match the messages sent to the server by 
+the client.
+This unexpected behavior could result from multiple forms 
+of system error or system compromise.
+
+Lab4-D-4:
+The client doesn't change. Attack is ineffective, even though
+the out-of-range rate is sent to the server.
+The reason is that the hacker send the message to the server 
+in plaintext, thus it's clear for the server that the hacker
+don't have the key, and cannot encrypt the message.
+
+Lab4-E-1:
+The messages returned from the server match the messages sent 
+to the server by the client.
+After we change the rate, there is duplicate messages  
+from the server (that's why in part Lab4-D-3, it appears 
+that the server is one step behind the client).
+The reason is that, the server encounter some error, and 
+it has to send the message again after a short delay.
+By using dual thread, the read buffer is always ready after
+the write, so that we always print out up-to-date value.
